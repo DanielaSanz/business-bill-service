@@ -14,8 +14,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 public class SwaggerConfig {
 
-    private static final String TITLE = "BILL DETAIL REST API";
-    private static final Contact CONTACT = new Contact("BILL DETAIL", null,
+    private static final String TITLE = "BILL REST API";
+    private static final Contact CONTACT = new Contact("DETAIL BILL", null,
             "julian.markowskyj@gmail.com.ar");
     private static final String DESCRIPTION = "Servicio de detalles de factura";
     private static final String SERVICE_VERSION = "0.0.1";
