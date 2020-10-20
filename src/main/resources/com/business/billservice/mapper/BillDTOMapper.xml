@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.business.billservice.mapper.BillDTOMapper">
+
+    <select id="obtainBill" resultType="com.business.billservice.model.dto.BillDTO">
+        SELECT B.ID idBill, B.NUMBER_BILL billNumber, B.DATE_BILL billDate, C.NAME name, C.SURNAME surname, TP.IVA iva
+        FROM BILLS B
+        JOIN CLIENTS C ON C.ID = B.ID_CLIENT
+        JOIN TYPES_CLIENT TP ON TP.ID = C.ID_TYPE_CLIENT
+        WHERE B.ID = 1
+	</select>
+
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.business.billservice.mapper.BillDetailsDTOMapper">
+
+    <select id="obtainBillDetails" resultType="com.business.billservice.model.dto.DetailDTO">
+        SELECT A.DESCRIPTION description, BD.AMOUNT amount, BD.SALE_PRICE salePrice, (BD.SALE_PRICE* BD.REBATE) saleRebate
+        FROM BILL_DETAILS BD
+        JOIN BILLS B ON B.ID = BD.ID_BILL
+        JOIN ARTICLES A ON A.ID = BD.ID_ARTICLE
+        WHERE B.ID = 1
+	</select>
+
+</mapper>
