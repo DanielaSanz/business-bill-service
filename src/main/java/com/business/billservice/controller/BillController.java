@@ -2,6 +2,7 @@ package com.business.billservice.controller;
 
 import com.business.billservice.controller.http.BillResponse;
 import com.business.billservice.utils.ValidateId;
+import com.business.billservice.validator.Validator;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -21,12 +22,12 @@ import java.util.function.Function;
 public class BillController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BillController.class);
-    private final ValidateId validateId;
+    private final Validator<Integer> validateIdNumber;
     private final Function<Integer, BillResponse> billSupplier;
 
     @Autowired
-    public BillController(ValidateId validateId, Function<Integer, BillResponse> billSupplier) {
-        this.validateId = validateId;
+    public BillController(Validator<Integer> validateIdNumber, Function<Integer, BillResponse> billSupplier) {
+        this.validateIdNumber = validateIdNumber;
         this.billSupplier = billSupplier;
     }
 
@@ -41,14 +42,14 @@ public class BillController {
     })
     public ResponseEntity<BillResponse> obtainBill (@PathVariable Integer idBill){
         try{
-            validateId.validateId(idBill);
+            validateIdNumber.validate(idBill);
             LOGGER.info("Se obtuvo el detalle de la factura id = {}", idBill);
             return ResponseEntity.ok(billSupplier.apply(idBill));
         }catch (IllegalArgumentException iae){
-            LOGGER.info("El id ingresado no es válido ", idBill);
+            LOGGER.warn("El id ingresado no es válido: ", iae.getMessage());
             return ResponseEntity.badRequest().body(new BillResponse(iae.getMessage()));
         } catch (Exception ex){
-            LOGGER.warn("Ocurrio un error al tratar de obtener el detalle de factura id = {}", idBill);
+            LOGGER.error("Ocurrio un error al tratar de obtener el detalle de factura id = {}", idBill);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new BillResponse(ex.getMessage()));
         }
     }
