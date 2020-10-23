@@ -9,7 +9,7 @@
         FROM BILLS B
         JOIN CLIENTS C ON C.ID = B.ID_CLIENT
         JOIN TYPES_CLIENT TP ON TP.ID = C.ID_TYPE_CLIENT
-        WHERE B.ID = 1
+        WHERE B.ID = #{idBill}
 	</select>
 
 </mapper>
