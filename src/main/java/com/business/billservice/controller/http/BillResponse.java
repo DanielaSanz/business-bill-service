@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BillResponse {
+public class BillResponse extends GenericResponse{
     private Integer idBill;
     private String billNumber;
     private String billDate;
@@ -29,10 +29,10 @@ public class BillResponse {
     private Double rebateTotal;
     private Double grossTotal;
     private Double netTotal;
-    private String errorMessage;
 
-    public BillResponse(Integer idBill, String billNumber, String billDate, String name, String surname,
-                        List<Detail> details, Double iva, Double rebateTotal, Double grossTotal, Double netTotal) {
+    public BillResponse(String errorMessage, Integer idBill, String billNumber, String billDate, String name,
+                        String surname, List<Detail> details, Double iva, Double rebateTotal, Double grossTotal, Double netTotal) {
+        super(errorMessage);
         this.idBill = idBill;
         this.billNumber = billNumber;
         this.billDate = billDate;
@@ -43,9 +43,5 @@ public class BillResponse {
         this.rebateTotal = rebateTotal;
         this.grossTotal = grossTotal;
         this.netTotal = netTotal;
-    }
-
-    public BillResponse(String errorMessage) {
-        this.errorMessage = errorMessage;
     }
 }
