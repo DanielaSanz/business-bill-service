@@ -32,5 +32,4 @@ public class SwaggerConfigTest {
         }
         throw new FileNotFoundException("pom.xml must exist");
     }
-
 }

@@ -1,7 +1,6 @@
 package com.business.billservice.controller;
 
 import com.business.billservice.controller.http.BillResponse;
-import com.business.billservice.utils.ValidateId;
 import com.business.billservice.validator.Validator;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -43,10 +42,9 @@ public class BillController {
     public ResponseEntity<BillResponse> obtainBill (@PathVariable Integer idBill){
         try{
             validateIdNumber.validate(idBill);
-            LOGGER.info("Se obtuvo el detalle de la factura id = {}", idBill);
             return ResponseEntity.ok(billSupplier.apply(idBill));
         }catch (IllegalArgumentException iae){
-            LOGGER.warn("El id ingresado no es válido: ", iae.getMessage());
+            LOGGER.warn("El id ingresado no es válido: {}", idBill, iae.getMessage());
             return ResponseEntity.badRequest().body(new BillResponse(iae.getMessage()));
         } catch (Exception ex){
             LOGGER.error("Ocurrio un error al tratar de obtener el detalle de factura id = {}", idBill);

@@ -24,15 +24,15 @@ class BillControllerTest {
 
     private final Integer VALID_ID = 1;
     private final String BAD_REQUEST_MESSAGE = "El número de factura no puede ser nulo ni menor o igual a 0";
-    private final Detail detail = Detail.builder().build();
-    private final List<Detail> details = Arrays.asList(detail);
+    private final Detail VALID_DETAIL = Detail.builder().build();
+    private final List<Detail> VALID_DETAILS = Arrays.asList(VALID_DETAIL);
 
-    private final BillResponse billResponse = BillResponse.builder()
+    private final BillResponse VALID_BILL_RESPONSE = BillResponse.builder()
             .idBill(1)
             .billNumber("1")
             .billDate("22/09/2020")
             .name("Daniela")
-            .details(details)
+            .details(VALID_DETAILS)
             .iva(1.105)
             .rebateTotal(3674.00)
             .grossTotal(3940.00)
@@ -73,12 +73,12 @@ class BillControllerTest {
     @Test
     void obtainBill_NoCaughtException_ReturnsOK() {
         Validator<Integer> validatorIdNumber = request -> {};
-        Function<Integer, BillResponse> billSupplier = response -> billResponse;
+        Function<Integer, BillResponse> billSupplier = response -> VALID_BILL_RESPONSE;
         BillController billController = new BillController(validatorIdNumber, billSupplier);
 
         final ResponseEntity<BillResponse> responseEntity = billController.obtainBill(VALID_ID);
 
         assertThat(responseEntity.getStatusCode(), is(HttpStatus.OK));
-        assertThat(responseEntity.getBody(), is (billResponse));
+        assertThat(responseEntity.getBody(), is (VALID_BILL_RESPONSE));
     }
 }

@@ -3,7 +3,6 @@ package com.business.billservice.mapper;
 import com.business.billservice.model.dto.DetailDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

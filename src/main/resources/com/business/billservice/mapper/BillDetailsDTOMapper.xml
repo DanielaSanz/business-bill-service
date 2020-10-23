@@ -9,7 +9,7 @@
         FROM BILL_DETAILS BD
         JOIN BILLS B ON B.ID = BD.ID_BILL
         JOIN ARTICLES A ON A.ID = BD.ID_ARTICLE
-        WHERE B.ID = 1
+        WHERE B.ID = #{idBill}
 	</select>
 
 </mapper>
