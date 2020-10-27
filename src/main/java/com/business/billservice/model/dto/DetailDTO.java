@@ -16,12 +16,4 @@ public class DetailDTO {
     private Integer amount;
     private Double salePrice;
     private Double saleRebate;
-
-    public Double obtainGrossTotal(){
-        return amount * salePrice;
-    }
-
-    public Double obtainNetTotal(){
-        return amount * saleRebate;
-    }
 }
