@@ -1,6 +1,7 @@
 package com.business.billservice.controller;
 
 import com.business.billservice.controller.http.BillResponse;
+import com.business.billservice.controller.http.GenericResponse;
 import com.business.billservice.validator.Validator;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -39,16 +40,16 @@ public class BillController {
             @ApiResponse(code = 400, message = "Parametros inválido", response = BillController.class),
             @ApiResponse(code = 500, message = "Error inesperado del servicio web", response = BillController.class)
     })
-    public ResponseEntity<BillResponse> obtainBill (@PathVariable Integer idBill){
+    public ResponseEntity<GenericResponse> obtainBill (@PathVariable Integer idBill){
         try{
             validateIdNumber.validate(idBill);
             return ResponseEntity.ok(billSupplier.apply(idBill));
         }catch (IllegalArgumentException iae){
             LOGGER.warn("El id ingresado no es válido: {}", idBill, iae.getMessage());
-            return ResponseEntity.badRequest().body(new BillResponse(iae.getMessage()));
+            return ResponseEntity.badRequest().body(new GenericResponse(iae.getMessage()));
         } catch (Exception ex){
             LOGGER.error("Ocurrio un error al tratar de obtener el detalle de factura id = {}", idBill);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new BillResponse(ex.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new GenericResponse(ex.getMessage()));
         }
     }
 }

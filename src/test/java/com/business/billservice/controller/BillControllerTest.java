@@ -1,6 +1,7 @@
 package com.business.billservice.controller;
 
 import com.business.billservice.controller.http.BillResponse;
+import com.business.billservice.controller.http.GenericResponse;
 import com.business.billservice.model.Detail;
 import com.business.billservice.validator.Validator;
 import org.junit.jupiter.api.Test;
@@ -53,7 +54,7 @@ class BillControllerTest {
         Validator<Integer> validatorIdNumber = request -> {throw new IllegalArgumentException(BAD_REQUEST_MESSAGE);};
         BillController billController = new BillController(validatorIdNumber,null);
 
-        ResponseEntity<BillResponse> responseEntity = billController.obtainBill(idBill);
+        ResponseEntity<GenericResponse> responseEntity = billController.obtainBill(idBill);
 
         assertThat(responseEntity.getStatusCode(), is(HttpStatus.BAD_REQUEST));
         assertThat(responseEntity.getBody().getErrorMessage(), is(BAD_REQUEST_MESSAGE));
@@ -65,7 +66,7 @@ class BillControllerTest {
         Function<Integer, BillResponse> billSupplier = response -> {throw new RuntimeException();};
         BillController billController = new BillController(validatorIdNumber, billSupplier);
 
-        final ResponseEntity<BillResponse> responseEntity = billController.obtainBill(VALID_ID);
+        final ResponseEntity<GenericResponse> responseEntity = billController.obtainBill(VALID_ID);
 
         assertThat(responseEntity.getStatusCode(), is(HttpStatus.INTERNAL_SERVER_ERROR));
     }
@@ -76,7 +77,7 @@ class BillControllerTest {
         Function<Integer, BillResponse> billSupplier = response -> VALID_BILL_RESPONSE;
         BillController billController = new BillController(validatorIdNumber, billSupplier);
 
-        final ResponseEntity<BillResponse> responseEntity = billController.obtainBill(VALID_ID);
+        final ResponseEntity<GenericResponse> responseEntity = billController.obtainBill(VALID_ID);
 
         assertThat(responseEntity.getStatusCode(), is(HttpStatus.OK));
         assertThat(responseEntity.getBody(), is (VALID_BILL_RESPONSE));
