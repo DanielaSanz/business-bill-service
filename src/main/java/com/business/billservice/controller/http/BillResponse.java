@@ -29,19 +29,5 @@ public class BillResponse extends GenericResponse{
     private Double rebateTotal;
     private Double grossTotal;
     private Double netTotal;
-
-    public BillResponse(String errorMessage, Integer idBill, String billNumber, String billDate, String name,
-                        String surname, List<Detail> details, Double iva, Double rebateTotal, Double grossTotal, Double netTotal) {
-        super(errorMessage);
-        this.idBill = idBill;
-        this.billNumber = billNumber;
-        this.billDate = billDate;
-        this.name = name;
-        this.surname = surname;
-        this.details = details;
-        this.iva = iva;
-        this.rebateTotal = rebateTotal;
-        this.grossTotal = grossTotal;
-        this.netTotal = netTotal;
-    }
+    
 }
