@@ -1,4 +1,4 @@
-package com.business.billservice.builder;
+package com.business.billservice.adapter;
 
 import com.business.billservice.model.Detail;
 import com.business.billservice.model.dto.DetailDTO;
@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.function.Function;
 
 @Component
-public class  DetailsBuilder implements Function<List<DetailDTO>, List<Detail>> {
+public class DetailsAdapter implements Function<List<DetailDTO>, List<Detail>> {
 
-    private final Function<DetailDTO, Detail> detailBuilder;
+    private final Function<DetailDTO, Detail> detailAdapter;
 
     @Autowired
-    public DetailsBuilder(Function<DetailDTO, Detail> detailBuilder) {
-        this.detailBuilder = detailBuilder;
+    public DetailsAdapter(Function<DetailDTO, Detail> detailAdapter) {
+        this.detailAdapter = detailAdapter;
     }
 
 
@@ -24,7 +24,7 @@ public class  DetailsBuilder implements Function<List<DetailDTO>, List<Detail>> 
     public List<Detail> apply(List<DetailDTO> detailDTOS) {
         List<Detail> details = new ArrayList<>();
         for(DetailDTO dto : detailDTOS ){
-            Detail detail = detailBuilder.apply(dto);
+            Detail detail = detailAdapter.apply(dto);
             details.add(detail);
         }
         return details;

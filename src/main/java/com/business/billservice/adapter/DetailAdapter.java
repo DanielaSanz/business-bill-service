@@ -1,4 +1,4 @@
-package com.business.billservice.builder;
+package com.business.billservice.adapter;
 
 import com.business.billservice.model.Detail;
 import com.business.billservice.model.dto.DetailDTO;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.function.Function;
 
 @Component
-public class DetailBuilder implements Function<DetailDTO, Detail> {
+public class DetailAdapter implements Function<DetailDTO, Detail> {
 
     @Override
     public Detail apply(DetailDTO dto) {

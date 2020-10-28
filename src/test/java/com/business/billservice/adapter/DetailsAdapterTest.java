@@ -1,4 +1,4 @@
-package com.business.billservice.builder;
+package com.business.billservice.adapter;
 
 import com.business.billservice.model.Detail;
 import com.business.billservice.model.dto.DetailDTO;
@@ -11,7 +11,7 @@ import java.util.function.Function;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-class DetailsBuilderTest {
+class DetailsAdapterTest {
 
     private final List<DetailDTO> VALID_DTO_DETAILS = Arrays.asList(new DetailDTO("Mate", 2 ,
                                                         510.00, 459.00));
@@ -21,8 +21,8 @@ class DetailsBuilderTest {
     @Test
     public void obtainListDetail1() {
 
-        Function<DetailDTO, Detail> detailDtoBuilder = param -> VALID_DETAIL;
-        DetailsBuilder detailsBuilder = new DetailsBuilder(detailDtoBuilder);
+        Function<DetailDTO, Detail> detailAdapter = param -> VALID_DETAIL;
+        DetailsAdapter detailsBuilder = new DetailsAdapter(detailAdapter);
 
         List<Detail> detailsList = detailsBuilder.apply(VALID_DTO_DETAILS);
 

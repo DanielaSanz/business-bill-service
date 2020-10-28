@@ -1,4 +1,4 @@
-package com.business.billservice.builder;
+package com.business.billservice.adapter;
 
 import com.business.billservice.controller.http.BillResponse;
 import com.business.billservice.model.Detail;
@@ -12,19 +12,19 @@ import java.util.List;
 import java.util.function.Function;
 
 @Component
-public class BillBuilder implements Function<BillDTO, BillResponse> {
+public class BillAdapter implements Function<BillDTO, BillResponse> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BillBuilder.class);
-    private final Function<Integer, List<Detail>> billDetails;
+    private static final Logger LOGGER = LoggerFactory.getLogger(BillAdapter.class);
+    private final Function<Integer, List<Detail>> billProvider;
 
     @Autowired
-    public BillBuilder(Function<Integer, List<Detail>> billDetails) {
-        this.billDetails = billDetails;
+    public BillAdapter(Function<Integer, List<Detail>> billProvider) {
+        this.billProvider = billProvider;
     }
 
     @Override
     public BillResponse apply(BillDTO billDTO) {
-        final List<Detail> details = billDetails.apply(billDTO.getIdBill());
+        final List<Detail> details = billProvider.apply(billDTO.getIdBill());
         final Double billRebateTotal = obtainRebateTotal(details);
         final Double billGrossTotal = obtainGrossTotal(details);
         final Double billNetTotal = billRebateTotal * billDTO.getIva();

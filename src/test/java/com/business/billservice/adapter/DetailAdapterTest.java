@@ -1,4 +1,4 @@
-package com.business.billservice.builder;
+package com.business.billservice.adapter;
 
 import com.business.billservice.model.Detail;
 import com.business.billservice.model.dto.DetailDTO;
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-class DetailBuilderTest {
+class DetailAdapterTest {
 
     private final DetailDTO VALID_DETAIL_DTO = new DetailDTO("Mate", 2 , 510.00, 459.00);
 
@@ -16,7 +16,7 @@ class DetailBuilderTest {
 
     @Test
     void obtainDetail(){
-        DetailBuilder sut = new DetailBuilder();
+        DetailAdapter sut = new DetailAdapter();
 
         Detail detail = sut.apply(VALID_DETAIL_DTO);
 

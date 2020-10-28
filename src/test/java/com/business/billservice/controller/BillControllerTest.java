@@ -63,8 +63,8 @@ class BillControllerTest {
     @Test
     void obtainBill_ThrowsException_ReturnsInternalServerError() {
         Validator<Integer> validatorIdNumber = request -> {};
-        Function<Integer, BillResponse> billSupplier = response -> {throw new RuntimeException();};
-        BillController billController = new BillController(validatorIdNumber, billSupplier);
+        Function<Integer, BillResponse> billProvider = response -> {throw new RuntimeException();};
+        BillController billController = new BillController(validatorIdNumber, billProvider);
 
         final ResponseEntity<GenericResponse> responseEntity = billController.obtainBill(VALID_ID);
 
@@ -74,8 +74,8 @@ class BillControllerTest {
     @Test
     void obtainBill_NoCaughtException_ReturnsOK() {
         Validator<Integer> validatorIdNumber = request -> {};
-        Function<Integer, BillResponse> billSupplier = response -> VALID_BILL_RESPONSE;
-        BillController billController = new BillController(validatorIdNumber, billSupplier);
+        Function<Integer, BillResponse> billProvider = response -> VALID_BILL_RESPONSE;
+        BillController billController = new BillController(validatorIdNumber, billProvider);
 
         final ResponseEntity<GenericResponse> responseEntity = billController.obtainBill(VALID_ID);
 
