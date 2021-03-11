@@ -1,4 +1,4 @@
-package com.business.billservice.supplier;
+package com.business.billservice.provider;
 
 import com.business.billservice.model.Detail;
 import com.business.billservice.model.dto.DetailDTO;
@@ -10,19 +10,19 @@ import java.util.List;
 import java.util.function.Function;
 
 @Component
-public class DetailsSupplier implements Function<Integer, List<Detail>> {
+public class DetailsProvider implements Function<Integer, List<Detail>> {
     private final DetailService detailService;
-    private final Function<List<DetailDTO>, List<Detail>> detailBuilder;
+    private final Function<List<DetailDTO>, List<Detail>> detailsAdapter;
 
     @Autowired
-    public DetailsSupplier(DetailService detailService, Function<List<DetailDTO>, List<Detail>> detailBuilder) {
+    public DetailsProvider(DetailService detailService, Function<List<DetailDTO>, List<Detail>> detailsAdapter) {
         this.detailService = detailService;
-        this.detailBuilder = detailBuilder;
+        this.detailsAdapter = detailsAdapter;
     }
 
     @Override
     public List<Detail> apply(Integer idBill) {
         final List<DetailDTO> detailDTOS = detailService.obtainDetails(idBill);
-        return detailBuilder.apply(detailDTOS);
+        return detailsAdapter.apply(detailDTOS);
     }
 }

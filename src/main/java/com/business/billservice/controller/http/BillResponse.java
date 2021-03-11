@@ -29,5 +29,4 @@ public class BillResponse extends GenericResponse{
     private Double rebateTotal;
     private Double grossTotal;
     private Double netTotal;
-    
 }

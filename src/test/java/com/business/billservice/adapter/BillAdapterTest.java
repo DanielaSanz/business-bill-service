@@ -1,4 +1,4 @@
-package com.business.billservice.builder;
+package com.business.billservice.adapter;
 
 import com.business.billservice.controller.http.BillResponse;
 import com.business.billservice.model.Detail;
@@ -12,7 +12,7 @@ import java.util.function.Function;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-class BillBuilderTest {
+class BillAdapterTest {
 
     private final BillDTO VALID_BILL_DTO = BillDTO.builder().iva(1.105).build();
 
@@ -28,10 +28,10 @@ class BillBuilderTest {
     @Test
     void obtainBillResponse() {
 
-        Function<Integer, List<Detail>> billDetails = param -> VALID_DETAILS;
-        BillBuilder billBuilder = new BillBuilder(billDetails);
+        Function<Integer, List<Detail>> billProvider = param -> VALID_DETAILS;
+        BillAdapter billAdapter = new BillAdapter(billProvider);
 
-        BillResponse billResponse = billBuilder.apply(VALID_BILL_DTO);
+        BillResponse billResponse = billAdapter.apply(VALID_BILL_DTO);
 
         assertThat(billResponse.getRebateTotal(), is(EXPECTED_REBATE_TOTAL));
         assertThat(billResponse.getGrossTotal(), is(EXPECTED_GROSS_TOTAL));

@@ -23,12 +23,12 @@ public class BillController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BillController.class);
     private final Validator<Integer> validateIdNumber;
-    private final Function<Integer, BillResponse> billSupplier;
+    private final Function<Integer, BillResponse> billProvider;
 
     @Autowired
-    public BillController(Validator<Integer> validateIdNumber, Function<Integer, BillResponse> billSupplier) {
+    public BillController(Validator<Integer> validateIdNumber, Function<Integer, BillResponse> billProvider) {
         this.validateIdNumber = validateIdNumber;
-        this.billSupplier = billSupplier;
+        this.billProvider = billProvider;
     }
 
     @GetMapping(
@@ -43,7 +43,7 @@ public class BillController {
     public ResponseEntity<GenericResponse> obtainBill (@PathVariable Integer idBill){
         try{
             validateIdNumber.validate(idBill);
-            return ResponseEntity.ok(billSupplier.apply(idBill));
+            return ResponseEntity.ok(billProvider.apply(idBill));
         }catch (IllegalArgumentException iae){
             LOGGER.warn("El id ingresado no es válido: {}", idBill, iae.getMessage());
             return ResponseEntity.badRequest().body(new GenericResponse(iae.getMessage()));

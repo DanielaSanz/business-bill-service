@@ -1,4 +1,4 @@
-package com.business.billservice.supplier;
+package com.business.billservice.provider;
 
 import com.business.billservice.model.Detail;
 import com.business.billservice.model.dto.DetailDTO;
@@ -11,7 +11,7 @@ import java.util.function.Function;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-class DetailsSupplierTest {
+class DetailsProviderTest {
 
     private final Integer VALID_ID = 1;
     private final DetailDTO VALID_DTO_DETAIL = new DetailDTO("Mate", 2 ,510.00,459.00);
@@ -24,8 +24,8 @@ class DetailsSupplierTest {
     public void obtainListDetail() {
 
         DetailService detailService = idBill -> VALID_DTO_DETAILS;
-        Function<List<DetailDTO>, List<Detail>> detailBuilder = param -> VALID_DETAILS;
-        DetailsSupplier sut = new DetailsSupplier(detailService, detailBuilder);
+        Function<List<DetailDTO>, List<Detail>> detailsAdapter = param -> VALID_DETAILS;
+        DetailsProvider sut = new DetailsProvider(detailService, detailsAdapter);
 
         final List<Detail> detailList = sut.apply(VALID_ID);
 
